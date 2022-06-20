@@ -41,10 +41,10 @@ The application is created of **a widget tree**, the **transaction item**, the *
 
 
 
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/my_expenses1.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/my_expenses2.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/my_expenses3.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/my_expenses4.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/my_expenses5.PNG)
+![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses1.PNG)
+![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses2.PNG)
+![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses3.PNG)
+![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses4.PNG)
+![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses5.PNG)
 
 
