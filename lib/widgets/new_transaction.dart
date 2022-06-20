@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
@@ -63,97 +65,190 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    final pickedDate = DateFormat.yMd().format(_selectedDate);
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final addExpensesWidget = Card(
+      elevation: 1,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.32,
+        width: MediaQuery.of(context).size.height * 0.3,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: TextField(
+                style: Theme.of(context).textTheme.headline5,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                  icon: Icon(
+                    Icons.title,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(150, 150, 210, 5),
+                      width: 2,
+                    ),
+                  ),
+                ),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: TextField(
+                style: Theme.of(context).textTheme.headline5,
+                decoration: InputDecoration(
+                  labelText: 'Amount',
+                  labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                  icon: Icon(
+                    Icons.attach_money,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromRGBO(150, 150, 210, 5),
+                      width: 2,
+                    ),
+                  ),
+                ),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.038,
+              margin: EdgeInsets.all(5),
+              child: Center(
+                child: Text(
+                  _selectedDate == null
+                      ? 'The date not chosen!'
+                      : 'Picked date: ${DateFormat.yMd().format(_selectedDate)}',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                      child: AdaptiveFlatButton1(
+                          'Choose Date', _presentDataPicker)),
+                  Expanded(
+                      child: AdaptiveFlatButton2('Add Expenses', _submitData)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 
     return SingleChildScrollView(
-      child: Card(
-        elevation: 1,
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.height * 0.32,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: TextField(
-                  style: Theme.of(context).textTheme.headline5,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    labelStyle:
-                        Theme.of(context).inputDecorationTheme.labelStyle,
-                    icon: Icon(
-                      Icons.title,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromRGBO(150, 150, 210, 5),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  controller: _titleController,
-                  onSubmitted: (_) => _submitData(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: TextField(
-                  style: Theme.of(context).textTheme.headline5,
-                  decoration: InputDecoration(
-                    labelText: 'Amount',
-                    labelStyle:
-                        Theme.of(context).inputDecorationTheme.labelStyle,
-                    icon: Icon(
-                      Icons.attach_money,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromRGBO(150, 150, 210, 5),
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  onSubmitted: (_) => _submitData(),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.038,
-                margin: EdgeInsets.all(5),
-                child: Center(
-                  child: Text(
-                    _selectedDate == null
-                        ? 'The date not chosen!'
-                        : 'Picked date: ${pickedDate}',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.05,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+      child: Column(
+        children: [
+          if (!isLandscape) addExpensesWidget,
+          if (isLandscape)
+            Card(
+              elevation: 1,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                width: MediaQuery.of(context).size.height * 0.6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    Expanded(
-                        child: AdaptiveFlatButton1(
-                            'Choose Date', _presentDataPicker)),
-                    Expanded(
-                        child:
-                            AdaptiveFlatButton2('Add Expenses', _submitData)),
+                    Padding(
+                      padding: EdgeInsets.only(right: 15),
+                      child: TextField(
+                        style: Theme.of(context).textTheme.headline5,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Title',
+                          labelStyle:
+                              Theme.of(context).inputDecorationTheme.labelStyle,
+                          icon: Icon(
+                            Icons.title,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(150, 150, 210, 5),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        controller: _titleController,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: TextField(
+                        style: Theme.of(context).textTheme.headline5,
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                          labelStyle:
+                              Theme.of(context).inputDecorationTheme.labelStyle,
+                          icon: Icon(
+                            Icons.attach_money,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(150, 150, 210, 5),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        controller: _amountController,
+                        keyboardType: TextInputType.number,
+                        onSubmitted: (_) => _submitData(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      margin: EdgeInsets.all(5),
+                      child: Center(
+                        child: Text(
+                          _selectedDate == null
+                              ? 'The date not chosen!'
+                              : 'Picked date: ${DateFormat.yMd().format(_selectedDate)}',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Expanded(
+                              child: AdaptiveFlatButton1(
+                                  'Choose Date', _presentDataPicker)),
+                          Expanded(
+                              child: AdaptiveFlatButton2(
+                                  'Add Expenses', _submitData)),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+        ],
       ),
     );
   }

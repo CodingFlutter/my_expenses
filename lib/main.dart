@@ -119,6 +119,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final textWigetList = Container(
+        height: (mediaQuery.size.height - mediaQuery.padding.top) * 0.5,
+        child: TransactionList(_userTransactions, _deleteTransaction));
+    final textWigetList1 = Container(
+        height: (mediaQuery.size.height - mediaQuery.padding.top) * 0.85,
+        child: TransactionList(_userTransactions, _deleteTransaction));
+    final chartWidget = Container(
+        height: (mediaQuery.size.height - mediaQuery.padding.top) * 0.2,
+        child: Chart(_recentTransaction));
 
     final pageBody = SingleChildScrollView(
       child: Column(
@@ -144,27 +153,46 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-          SafeArea(
-            child: Container(
-              height: (MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.32,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AddedImage(),
-                  NewTransaction(_addNewTransaction),
-                ],
+          if (!isLandscape)
+            SafeArea(
+              child: Container(
+                height: (MediaQuery.of(context).size.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.35,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AddedImage(),
+                    NewTransaction(_addNewTransaction),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-              height: (mediaQuery.size.height - mediaQuery.padding.top) * 0.5,
-              child: TransactionList(_userTransactions, _deleteTransaction)),
-          Container(
-              height: (mediaQuery.size.height - mediaQuery.padding.top) * 0.2,
-              child: Chart(_recentTransaction)),
+          if (!isLandscape) textWigetList,
+          if (!isLandscape) chartWidget,
+          if (isLandscape)
+            _addExpenses
+                ? SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15, bottom: 5),
+                      child: Container(
+                        height: (MediaQuery.of(context).size.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.95,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AddedImage(),
+                            NewTransaction(_addNewTransaction),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : textWigetList1,
         ],
       ),
     );
