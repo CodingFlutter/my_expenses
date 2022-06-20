@@ -41,10 +41,9 @@ The application is created of **a widget tree**, the **transaction item**, the *
 
 
 
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses1.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses2.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses3.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses4.PNG)
-![](https://github.com/Laura555-p/myexpenses/blob/master/assets/images/myexpenses5.PNG)
+![](https://github.com/CodingFlutter/my_expenses/blob/main/assets/images/myexpenses1.jpeg)
+![](https://github.com/CodingFlutter/my_expenses/blob/main/assets/images/myexpenses2.jpeg)
+![](https://github.com/CodingFlutter/my_expenses/blob/main/assets/images/myexpenses3.jpeg)
+![](https://github.com/CodingFlutter/my_expenses/blob/main/assets/images/myexpenses4.jpeg)
 
 
