@@ -14,7 +14,7 @@ The application is created of **a widget tree**, the **transaction item**, the *
 ![](https://github.com/CodingFlutter/my_expenses/blob/main/assets/images/myexpensesWidgetTree.jpeg/)
 
 
-- **Transaction item** is created under a blueprint of transactionclass, it describes what information about the transaction is required. In this case (id, title, amount, date).
+- **Transaction item** is created under a blueprint of transaction class, it describes what information about the transaction is required. In this case (id, title, amount, date).
 
 - List **'transactions'** holding list of transactions and transaction class used as a type of list.
 
